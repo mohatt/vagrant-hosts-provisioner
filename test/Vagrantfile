@@ -13,6 +13,10 @@ Vagrant.configure('2') do |config|
     puppet.options = ['--parser future']
   end
   
-  config.vm.provision :dashboardhosts
+  config.vm.provision :hostsupdate do |host|
+    host.hostname = 'not-testbox'
+    host.manage_guest = true
+    host.aliases = ['hey', 'man']
+  end
 
 end

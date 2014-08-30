@@ -12,12 +12,12 @@ module VagrantPlugins
 
       def provision
         # Update the guest machine if manage_guest is enabled
-        if @config.manage_guest?
+        if @config.manage_guest
           update_guest
         end
         
         # Update the host machine if manage_host is enabled
-        if @config.manage_host?
+        if @config.manage_host
           update_host
         end
       end
@@ -92,8 +92,8 @@ module VagrantPlugins
 
       def update_content(file_content, include_id)
         id = include_id ? " id: #{read_or_create_id}" : ""
-        header = "## vagrant-hostmanager-start#{id}\n"
-        footer = "## vagrant-hostmanager-end\n"
+        header = "## vagrant-hosts-provisioner-start#{id}\n"
+        footer = "## vagrant-hosts-provisioner-end\n"
         body = get_hosts_file_entry
         get_new_content(header, footer, body, file_content) 
       end

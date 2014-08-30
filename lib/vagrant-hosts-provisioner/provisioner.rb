@@ -3,7 +3,6 @@ require 'tempfile'
 module VagrantPlugins
   module HostsProvisioner
     class Provisioner < Vagrant.plugin('2', :provisioner)
-      #include HostsFile
 
       def initialize(machine, config)
         super(machine, config)

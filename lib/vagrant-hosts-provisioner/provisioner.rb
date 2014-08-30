@@ -5,8 +5,7 @@ module VagrantPlugins
     class Provisioner < Vagrant.plugin('2', :provisioner)
 
       def initialize(machine, config)
-        super(machine, config)
-
+        super
       end
 
       def provision
@@ -131,7 +130,7 @@ module VagrantPlugins
       end
 
       def read_or_create_id
-        file = Pathname.new("#{@machine.env.local_data_path}/hostmanager/id")
+        file = Pathname.new("#{@machine.env.local_data_path}/hostsprovisioner/#{@machine.name}")
         if (file.file?)
           id = file.read.strip
         else

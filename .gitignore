@@ -1,0 +1,15 @@
+.bundle/
+.yardoc
+Gemfile.lock
+test/.vagrant
+_yardoc/
+coverage/
+doc/
+pkg/
+tmp/
+*.gem
+*.bundle
+*.so
+*.o
+*.a
+mkmf.log

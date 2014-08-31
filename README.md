@@ -1,7 +1,6 @@
 # VagrantPlugins::HostsProvisioner
 
-A Vagrant provisioner for managing the /etc/hosts file of the host and guest machines. This plugin is currently being used by [#Dashboard VM](https://github.com/mdkholy/Dashboard)..
-
+A Vagrant provisioner for managing the /etc/hosts file of the host and guest machines.
 ## Installation
 
 Install into vagrant's isolated RubyGems instance using:

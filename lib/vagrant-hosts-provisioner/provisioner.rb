@@ -97,6 +97,7 @@ module VagrantPlugins
       end
 
       def get_hosts_file_entry
+        # Get the vm ip address
         ip = get_ip_address
 
         # Return empy string if we don't have an ip address
@@ -133,6 +134,8 @@ module VagrantPlugins
           if File.exist?(file_path)
             file_data = JSON.parse(File.read(file_path))
             data.concat([ file_data ].flatten)
+          else
+            handle_comm(:stderr, I18n.t("vagrant_hostsprovisioner.error.file_not_found", {:file => file.to_s}))
           end
         end
         data.collect(&:strip)
@@ -145,6 +148,7 @@ module VagrantPlugins
           ip = options[:ip] if key == :private_network
           break if ip
         end
+        # If no ip is defined in private_network then use the ssh host ip instead
         ip || (@machine.ssh_info ? @machine.ssh_info[:host] : nil)
       end
 

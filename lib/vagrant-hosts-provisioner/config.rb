@@ -41,7 +41,7 @@ module VagrantPlugins
       # Checks if a option is boolean
       def validate_bool(key, value)
         if ![TrueClass, FalseClass].include?(value.class) && value != UNSET_VALUE
-          I18n.t('vagrant_hostsprovisioner.config.invalid_bool', {
+          I18n.t('vagrant_hostsprovisioner.error.invalid_bool', {
             :config_key    => key,
             :invalid_class => value.class.to_s
           })
@@ -53,7 +53,7 @@ module VagrantPlugins
       # Checks if a option is an Array
       def validate_array_or_string(key, value)
         if !aliases.kind_of?(Array) && !aliases.kind_of?(String)
-          I18n.t('vagrant_hostsprovisioner.config.not_an_array_or_string', {
+          I18n.t('vagrant_hostsprovisioner.error.not_an_array_or_string', {
             :config_key    => key,
             :invalid_class => value.class.to_s
           })

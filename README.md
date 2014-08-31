@@ -9,7 +9,17 @@ Install into vagrant's isolated RubyGems instance using:
 
 ## Usage
 
-TODO: Write usage instructions here
+Example configuration:
+
+```ruby
+config.vm.provision :hostsupdate do |host|
+	host.hostname = 'demo-hostname'
+	host.manage_guest = true
+	host.manage_host = true
+	host.aliases = ['hostname-aliase1', 'hostname-aliase2']
+	host.files = ['config/hosts.json']
+end
+```
 
 ## Contributing
 

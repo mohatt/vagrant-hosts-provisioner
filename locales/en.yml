@@ -3,6 +3,7 @@ en:
     provisioner:
       update_guest: "Updating hosts file on the guest machine..."
       update_host: "Updating hosts file on the host machine (password may be required)..."
+      hosts_file_updated: "'%{file}' file updated successfully"
     error:
       invalid_bool: "Invalid data type '%{invalid_class}' provided for %{config_key}, expected 'boolean' value"
       not_an_array_or_string: "Invalid data type '%{invalid_class}' provided for %{config_key}, expected an Array or String"

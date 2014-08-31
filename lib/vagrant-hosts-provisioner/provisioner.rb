@@ -47,6 +47,7 @@ module VagrantPlugins
           # upload modified file and remove temporary file
           @machine.communicate.upload(file, '/tmp/hosts')
           @machine.communicate.sudo("#{move_cmd} /tmp/hosts #{realhostfile}")
+          handle_comm(:stdout, I18n.t("vagrant_hostsprovisioner.provisioner.hosts_file_updated", {:file => realhostfile}))
         end
 
         begin
@@ -77,6 +78,7 @@ module VagrantPlugins
         FileUtils.cp(hosts_location, file)
         if update_file(file, true)
           copy_proc.call
+          handle_comm(:stdout, I18n.t("vagrant_hostsprovisioner.provisioner.hosts_file_updated", {:file => hosts_location}))
         end
       end
 

@@ -1,0 +1,43 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure('2') do |config|
+
+  config.vm.box = 'ubuntu/trusty64'
+
+  config.vm.hostname = "multi-testbox"
+
+  config.vm.define :mark do |node|
+    node.vm.hostname = 'mark'
+    node.vm.network :private_network, :ip => '10.0.5.2'
+    node.vm.provision :hostsupdate do |provision|
+      provision.hostname = 'mark-hostname.dev'
+      provision.manage_guest = true
+      provision.manage_host = true
+      provision.aliases = ['mark-aliase1', 'mark-aliase2']
+    end
+  end
+
+  config.vm.define :john do |node|
+    node.vm.hostname = 'john'
+    node.vm.network :private_network, :ip => '10.0.5.3'
+    node.vm.provision :hostsupdate do |provision|
+      provision.hostname = 'john-hostname.dev'
+      provision.manage_guest = true
+      provision.manage_host = true
+      provision.aliases = ['john-aliase1', 'john-aliase2']
+      provision.files = ['config/hosts.json']
+    end
+  end
+
+  config.vm.define :brad do |node|
+    node.vm.hostname = 'brad'
+    node.vm.network :private_network, :ip => '10.0.5.4'
+    node.vm.provision :hostsupdate do |provision|
+      provision.manage_guest = true
+      provision.manage_host = true
+      provision.files = ['config/notfile.json']
+    end
+  end
+
+end

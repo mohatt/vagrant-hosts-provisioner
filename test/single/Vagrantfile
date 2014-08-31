@@ -1,0 +1,18 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure('2') do |config|
+
+  config.vm.box = 'ubuntu/trusty64'
+
+  config.vm.hostname = "single-testbox"
+
+  config.vm.provision :hostsupdate do |host|
+  	host.hostname = 'single-testbox-hostname'
+    host.manage_guest = true
+  	host.manage_host = true
+  	host.aliases = ['testbox-aliase1', 'testbox-aliase2']
+    host.files = ['config/hosts.json']
+  end
+
+end

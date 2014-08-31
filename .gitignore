@@ -1,7 +1,8 @@
 .bundle/
 .yardoc
 Gemfile.lock
-test/.vagrant
+test/single/.vagrant
+test/multi/.vagrant
 _yardoc/
 coverage/
 doc/

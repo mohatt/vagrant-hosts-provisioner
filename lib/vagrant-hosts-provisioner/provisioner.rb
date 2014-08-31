@@ -98,11 +98,44 @@ module VagrantPlugins
 
       def get_hosts_file_entry
         ip = get_ip_address
-        host = @config.hostname || @machine.config.vm.hostname || @machine.name
-        aliases = @config.aliases.join(' ').chomp
-        if ip != nil
-          "#{ip}\t#{host} #{aliases}\n"
+
+        # Return empy string if we don't have an ip address
+        if ip === nil
+          handle_comm(:stderr, I18n.t("vagrant_hostsprovisioner.error.no_vm_ip"))
+          return ''
         end
+
+        # Add the machine hostname
+        hosts = []
+        unless @config.hostname === false
+          hosts.push(@config.hostname || @machine.config.vm.hostname || @machine.name)
+        end
+
+        # Add the defined aliases
+        hosts.concat(@config.aliases)
+
+        # Add the contents of the defined hosts files
+        if @config.files.count > 0
+          hosts.concat(get_files_data)
+        end
+
+        # Remove duplicates
+        hosts = hosts.uniq.join(' ').strip
+
+        "#{ip}\t#{hosts}\n"
+      end
+
+      def get_files_data
+        require 'json'
+        data = []
+        @config.files.each do |file|
+          file_path = File.join(@machine.env.root_path, file)
+          if File.exist?(file_path)
+            file_data = JSON.parse(File.read(file_path))
+            data.concat([ file_data ].flatten)
+          end
+        end
+        data.collect(&:strip)
       end
 
       def get_ip_address
@@ -136,7 +169,7 @@ module VagrantPlugins
         else
           id = SecureRandom.uuid
           file.dirname.mkpath
-          file.open('w') { |io| io.write(id) }
+          file.open('w') { |f| f.write(id) }
         end
         id
       end

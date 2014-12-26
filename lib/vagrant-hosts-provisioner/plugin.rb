@@ -15,14 +15,35 @@ module VagrantPlugins
       DESC
 
       config(:hostsupdate, :provisioner) do
-        require File.expand_path("../config", __FILE__)
+        require_relative 'config'
         Config
       end
 
       provisioner(:hostsupdate) do
-        require File.expand_path("../provisioner", __FILE__)
+        require_relative 'provisioner'
         Provisioner
       end
+
+      action_hook(:hostsupdate, :machine_action_resume) do |hook|
+        require_relative 'action'
+        hook.append(Action.add)
+      end
+
+      action_hook(:hostsupdate, :machine_action_suspend) do |hook|
+        require_relative 'action'
+        hook.prepend(Action.remove)
+      end
+
+      action_hook(:hostsupdate, :machine_action_halt) do |hook|
+        require_relative 'action'
+        hook.prepend(Action.remove)
+      end
+
+      action_hook(:hostsupdate, :machine_action_destroy) do |hook|
+        require_relative 'action'
+        hook.prepend(Action.remove)
+      end
+
     end
   end
 end

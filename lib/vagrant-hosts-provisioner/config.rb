@@ -57,7 +57,7 @@ module VagrantPlugins
 
       # Checks if a option is a Number
       def validate_number(key, value)
-        if !value.kind_of?(Fixnum) && !value.kind_of?(NilClass)
+        if !value.kind_of?(Integer) && !value.kind_of?(NilClass)
           I18n.t('vagrant_hostsprovisioner.error.not_a_number', {
             :config_key    => key,
             :invalid_class => value.class.to_s
